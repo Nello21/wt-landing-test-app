@@ -9,7 +9,7 @@ export default function Home() {
                     alt="Landing Image"
                     width={1290}
                     height={434}
-                    className="pointer-events-none"
+                    className="pointer-events-none rounded-md"
                 />
                 <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
                     <div className="flex items-center gap-3">

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/shared/components/ui/header";
+import { Header } from "@/features/header";
+import { AppProvider } from "./_providers";
 
 const font = Montserrat({ subsets: ["latin"] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${font.className} min-h-[100dvh] bg-gray-light`}>
-                <Header />
-                {children}
+                <AppProvider>
+                    <Header />
+                    {children}
+                </AppProvider>
             </body>
         </html>
     );

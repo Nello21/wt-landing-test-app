@@ -1,15 +1,15 @@
 "use server";
 import { prisma } from "@/shared/lib/prisma";
-import { setSession } from "./session";
 import { CustomError, ERROR_CODES } from "@/shared/lib/errors";
+import { setSession } from "./session";
 
-export const login = async ({
-    phone,
-    code,
-}: {
-    phone: string;
-    code: string;
-}): Promise<void> => {
+export const login = async ({ phone }: { phone: string }): Promise<void> => {
+    await prisma.user.create({
+        data: {
+            phone,
+        },
+    });
+
     const user = await prisma.user.findFirst({
         where: {
             phone,
@@ -19,24 +19,9 @@ export const login = async ({
     if (!user) {
         throw new CustomError({
             message: "Пользователь не найден",
-            code: ERROR_CODES.USER_NOT_FOUND,
+            code: ERROR_CODES.NOT_FOUND,
         });
     }
 
-    const isCodeValid = await verifyCode(phone, code);
-    if (!isCodeValid) {
-        throw new CustomError({
-            message: "Неверный код",
-            code: ERROR_CODES.INVALID_CODE,
-        });
-    }
-
-    setSession({ data: { id: user.id, phone: user.phone } });
+    setSession({ id: user.id, phone: user.phone });
 };
-
-async function verifyCode(phone: string, code: string): Promise<boolean> {
-    // Логика проверки кода через SMS Aero или другую службу
-    // Например, проверка кода из базы данных или кеша
-    // Вернуть true, если код верный, иначе false
-    return true;
-}

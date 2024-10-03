@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import Logo from "../../../../public/icons/logo.svg";
-import Title from "../../../../public/icons/title.svg";
-import Phone from "../../../../public/icons/phone.svg";
-import User from "../../../../public/icons/user.svg";
-import { SearchBar } from "./search-bar";
+import Logo from "/public/icons/logo.svg";
+import Title from "/public/icons/title.svg";
+import Phone from "/public/icons/phone.svg";
+import User from "/public/icons/user.svg";
+import { SearchBar } from "./products-list/search-bar";
 
 export const Header = () => {
     return (
         <nav className="fixed bottom-0 sm:sticky sm:top-0 max-[640px]:fixed max-[640px]:bottom-0 max-[640px]:flex-col z-50 max-h-[94px] w-full px-4 bg-white">
-            <div className="h-full flex items-center justify-around py-4">
+            <div className="h-full flex items-center justify-evenly py-4">
                 <div className="flex gap-10">
                     <Link
                         href="/"

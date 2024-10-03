@@ -8,18 +8,18 @@ datasource db {
 }
 
 model User {
-  id               Int      @id @default(autoincrement())
-  name             String?
-  phoneNumber      String   @unique
-  verificationCode String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  name       String?
+  phone      String   @unique
+  verifyCode String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Product {
   id      Int    @id @default(autoincrement())
   name    String
-  article Int
-  code    Int
-  price   Int
+  article String
+  code    String
+  price   String
 }
