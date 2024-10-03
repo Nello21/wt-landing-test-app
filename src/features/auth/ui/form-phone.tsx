@@ -13,6 +13,7 @@ import {
 } from "@/shared/components/ui/form";
 import { Input } from "@/shared/components/ui/input";
 import { cn } from "@/shared/lib/utils";
+import Lock from "/public/icons/lock.svg";
 
 export const FormPhone = ({
     phoneForm,
@@ -41,20 +42,34 @@ export const FormPhone = ({
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Input
-                                        placeholder="Номер телефона"
-                                        {...field}
-                                        className={cn("", {
-                                            "border-red-600 bg-red-50":
-                                                phoneForm.formState.errors.root,
-                                        })}
-                                    />
+                                    <div className="relative flex items-center justify-center">
+                                        <div className="absolute left-3 text-gray-dark">
+                                            <Lock size={20} color="gray" />
+                                        </div>
+                                        <Input
+                                            placeholder="Номер телефона"
+                                            {...field}
+                                            className={cn(
+                                                "h-[44px] rounded-2xl border-blue-dark placeholder:text-gray-dark pl-8",
+                                                {
+                                                    "border-red-600 bg-red-50":
+                                                        phoneForm.formState
+                                                            .errors.root,
+                                                }
+                                            )}
+                                        />
+                                    </div>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Отправить код</Button>
+                    <Button
+                        type="submit"
+                        className="h-[44px] rounded-2xl bg-blue-dark text-white"
+                    >
+                        Выслать код
+                    </Button>
                 </form>
             </Form>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -14,7 +14,6 @@ import {
 } from "../../shared/components/ui/dialog";
 import { Button } from "../../shared/components/ui/button";
 import ProductsList from "@/features/products-list/products-list";
-import { useProducts } from "@/entity/products/_queries";
 
 interface SearchBarProps {
     placeholder?: string;

@@ -29,7 +29,7 @@ export const useFormPhone = () => {
         setGeneratedOTP(message);
 
         try {
-            // await postToAero({ phone, message });
+            await postToAero({ phone, message });
 
             setIsOTPMode(true);
             console.log(message);

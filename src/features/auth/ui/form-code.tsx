@@ -49,22 +49,28 @@ export const FormOTP = ({
                                 <InputOTP
                                     maxLength={4}
                                     {...field}
-                                    className={cn("", {
-                                        "border-red-600 bg-red-50 flex gap-3":
+                                    className={cn("h-[44px]", {
+                                        "border-red-600 bg-red-50":
                                             otpForm.formState.errors.root,
                                     })}
                                 >
-                                    <InputOTPGroup className="rounded-xl">
-                                        <InputOTPSlot index={0} />
-                                    </InputOTPGroup>
-                                    <InputOTPGroup className="rounded-xl">
-                                        <InputOTPSlot index={1} />
-                                    </InputOTPGroup>
-                                    <InputOTPGroup className="rounded-xl">
-                                        <InputOTPSlot index={2} />
-                                    </InputOTPGroup>
-                                    <InputOTPGroup className="rounded-xl">
-                                        <InputOTPSlot index={3} />
+                                    <InputOTPGroup className="h-[44px] gap-2">
+                                        <InputOTPSlot
+                                            index={0}
+                                            className="rounded-3xl border-blue-dark"
+                                        />
+                                        <InputOTPSlot
+                                            index={1}
+                                            className="rounded-3xl border-blue-dark"
+                                        />
+                                        <InputOTPSlot
+                                            index={2}
+                                            className="rounded-3xl border-blue-dark"
+                                        />
+                                        <InputOTPSlot
+                                            index={3}
+                                            className="rounded-3xl border-blue-dark"
+                                        />
                                     </InputOTPGroup>
                                 </InputOTP>
                             </FormControl>
@@ -73,7 +79,11 @@ export const FormOTP = ({
                     )}
                 />
 
-                <Button type="submit" disabled={isPending}>
+                <Button
+                    type="submit"
+                    className="h-[44px] rounded-3xl bg-blue-dark text-white"
+                    disabled={isPending}
+                >
                     Проверить код
                 </Button>
             </form>

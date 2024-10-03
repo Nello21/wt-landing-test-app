@@ -14,7 +14,7 @@ export function FormLogin() {
     });
 
     return (
-        <div className="flex flex-col gap-4 w-4/5 justify-center">
+        <div className="flex flex-col gap-4 w-3/5 justify-center pb-5">
             {!isOTPMode ? (
                 <FormPhone phoneForm={phoneForm} loginPhone={loginPhone} />
             ) : (
