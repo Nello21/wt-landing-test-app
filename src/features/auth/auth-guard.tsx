@@ -1,20 +1,25 @@
 "use client";
 
 import { useSession } from "@/entity/user/_queries";
+import { Loader } from "@/shared/components/ui/pacman-loader";
 import { useRouter } from "next/navigation";
-import { PacmanLoader } from "react-spinners";
 
 export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const session = useSession();
+    console.log(session);
     if (session.isLoading) {
-        return <PacmanLoader />;
+        return (
+            <div className="min-h-[100dvh] flex items-center justify-center">
+                <Loader />
+            </div>
+        );
     }
     if (session.isError) {
         router.replace("/login");
         return;
     }
-    if (!session) {
+    if (!session.data) {
         router.replace("/login");
         return;
     }

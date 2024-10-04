@@ -17,14 +17,21 @@ import {
     InputOTPSlot,
 } from "@/shared/components/ui/input-otp";
 import { cn } from "@/shared/lib/utils";
+import { BaseSyntheticEvent } from "react";
+import { UseFormReturn } from "react-hook-form";
 
 export const FormOTP = ({
     otpForm,
     loginOTP,
     isPending,
 }: {
-    otpForm: any;
-    loginOTP: any;
+    otpForm: UseFormReturn<
+        {
+            code: string;
+        },
+        undefined
+    >;
+    loginOTP: (e?: BaseSyntheticEvent) => Promise<void>;
     isPending: boolean;
 }) => {
     return (

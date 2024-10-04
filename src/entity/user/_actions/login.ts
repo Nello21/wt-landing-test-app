@@ -4,17 +4,19 @@ import { CustomError, ERROR_CODES } from "@/shared/lib/errors";
 import { setSession } from "./session";
 
 export const login = async ({ phone }: { phone: string }): Promise<void> => {
-    await prisma.user.create({
-        data: {
-            phone,
-        },
-    });
-
-    const user = await prisma.user.findFirst({
+    let user = await prisma.user.findFirst({
         where: {
             phone,
         },
     });
+
+    if (!user) {
+        user = await prisma.user.create({
+            data: {
+                phone,
+            },
+        });
+    }
 
     if (!user) {
         throw new CustomError({
@@ -22,6 +24,8 @@ export const login = async ({ phone }: { phone: string }): Promise<void> => {
             code: ERROR_CODES.NOT_FOUND,
         });
     }
+
+    setSession({ id: user.id, phone: user.phone });
 
     setSession({ id: user.id, phone: user.phone });
 };

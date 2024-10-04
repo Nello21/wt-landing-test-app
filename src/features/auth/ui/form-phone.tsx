@@ -14,13 +14,20 @@ import {
 import { Input } from "@/shared/components/ui/input";
 import { cn } from "@/shared/lib/utils";
 import Lock from "/public/icons/lock.svg";
+import { UseFormReturn } from "react-hook-form";
+import { BaseSyntheticEvent } from "react";
 
 export const FormPhone = ({
     phoneForm,
     loginPhone,
 }: {
-    phoneForm: any;
-    loginPhone: any;
+    phoneForm: UseFormReturn<
+        {
+            phone: string;
+        },
+        undefined
+    >;
+    loginPhone: (e?: BaseSyntheticEvent) => Promise<void>;
 }) => {
     return (
         <div>
@@ -43,8 +50,8 @@ export const FormPhone = ({
                             <FormItem>
                                 <FormControl>
                                     <div className="relative flex items-center justify-center">
-                                        <div className="absolute left-3 text-gray-dark">
-                                            <Lock size={20} color="gray" />
+                                        <div className="absolute left-3">
+                                            <Lock size={20} fill="lightgray" />
                                         </div>
                                         <Input
                                             placeholder="Номер телефона"

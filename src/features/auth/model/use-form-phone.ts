@@ -33,9 +33,10 @@ export const useFormPhone = () => {
 
             setIsOTPMode(true);
             console.log(message);
-        } catch (error: any) {
+        } catch (error) {
+            console.log(error);
             phoneForm.setError("root", {
-                message: error?.message ?? "Ошибка отправки SMS",
+                message: "Ошибка отправки SMS",
             });
         }
     }

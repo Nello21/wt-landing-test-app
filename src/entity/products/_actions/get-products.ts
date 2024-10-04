@@ -1,16 +1,36 @@
 "use server";
 
-import { CustomError, ERROR_CODES } from "@/shared/lib/errors";
 import { prisma } from "@/shared/lib/prisma";
 import { Product } from "../_domain/types";
 
-export const getTasks = async (): Promise<Product[]> => {
-    const products = await prisma.product.findMany();
-    if (!products) {
-        throw new CustomError({
-            message: "Товары не найдены",
-            code: ERROR_CODES.NOT_FOUND,
-        });
+const prepareQuery = (query: string) => {
+    const decodedQuery = decodeURIComponent(query);
+    return decodedQuery.split(/\s+/);
+};
+
+export const getFilteredProducts = async (
+    query: string
+): Promise<Product[]> => {
+    console.log(query);
+    if (!query) return [];
+
+    const searchTerms = prepareQuery(query);
+
+    const products = await prisma.product.findMany({
+        where: {
+            OR: searchTerms.map((term) => ({
+                OR: [
+                    { name: { contains: term.toLowerCase() } },
+                    { article: { contains: term.toLowerCase() } },
+                    { code: { contains: term.toLowerCase() } },
+                ],
+            })),
+        },
+    });
+
+    if (products.length === 0) {
+        console.warn("No products found for query:", query);
+        return [];
     }
 
     return products;

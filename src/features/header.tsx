@@ -6,8 +6,12 @@ import Title from "/public/icons/title.svg";
 import Phone from "/public/icons/phone.svg";
 import User from "/public/icons/user.svg";
 import { SearchBar } from "./products-list/search-bar";
+import { useSession } from "@/entity/user/_queries";
 
 export const Header = () => {
+    const session = useSession();
+    console.log(session);
+
     return (
         <nav className="fixed bottom-0 sm:sticky sm:top-0 max-[640px]:fixed max-[640px]:bottom-0 max-[640px]:flex-col z-50 max-h-[94px] w-full px-4 bg-white">
             <div className="h-full flex items-center justify-evenly py-4">
@@ -23,11 +27,11 @@ export const Header = () => {
                         />
                     </Link>
                     <div className="lg:w-[658px]">
-                        <SearchBar />
+                        {session.data && <SearchBar />}
                     </div>
                 </div>
 
-                <div className="flex gap-2 max-w-[255px]">
+                <div className="flex gap-4 max-w-[255px]">
                     <div className="flex gap-1 items-center">
                         <Phone width={20} height={20} />
                         <span className="max-[640px]:hidden uppercase text-nowrap font-semibold">

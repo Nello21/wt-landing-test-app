@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "../_actions/get-products";
+import { getFilteredProducts } from "../_actions/get-products";
 
-export function useProducts() {
+export function useProducts({ query }: { query: string }) {
     return useQuery({
-        queryKey: ["products"],
-        queryFn: () => getTasks(),
+        queryKey: ["products", query],
+        queryFn: () => getFilteredProducts(query),
+        enabled: !!query,
+        staleTime: 1000 * 60 * 5,
     });
 }

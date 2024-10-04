@@ -1,40 +1,37 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
 import { ProductCard } from "./product-card";
 import { Product } from "@/entity/products/_domain/types";
-import { useProducts } from "@/entity/products/_queries";
-import { PacmanLoader } from "react-spinners";
+import { useProductData } from "./use-products-data";
+import { Loader } from "@/shared/components/ui/pacman-loader";
 
-export default function productsList() {
-    const { data, error, isLoading } = useProducts();
-    const searchParams = useSearchParams();
-    const query = searchParams.get("query")?.toLowerCase() || "";
+export default function ProductsList() {
+    const { products, query, error, isLoading, isPending } = useProductData();
 
-    const filteredProducts = useMemo(() => {
-        if (!data) return [];
-        return data.filter((product: Product) =>
-            product.name.toLowerCase().includes(query)
+    if (isLoading || isPending) {
+        return (
+            <div className="flex items-center justify-center h-[65dvh] w-full">
+                <Loader />
+            </div>
         );
-    }, [data, query]);
-
-    if (isLoading) {
-        return <PacmanLoader />;
     }
 
     if (error) {
-        return <div>Error loading movies</div>;
+        return <div>Ошибка загрузки товаров</div>;
     }
 
     return (
         <div className="flex flex-col gap-6 items-start max-w-[1128px]">
-            {filteredProducts.length === 0 ? (
-                <div className="text-center text-lg">Товары не найдены</div>
+            {products.length === 0 ? (
+                <div className="text-center text-lg">История поиска пуста</div>
             ) : (
                 <div className="flex flex-col gap-4 overflow-hidden">
-                    {filteredProducts.map((product: Product) => (
-                        <ProductCard key={product.id} product={product} />
+                    {products.map((product: Product) => (
+                        <ProductCard
+                            key={product.id}
+                            product={product}
+                            query={query}
+                        />
                     ))}
                 </div>
             )}

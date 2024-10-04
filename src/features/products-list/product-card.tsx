@@ -1,7 +1,14 @@
 import { Product } from "@/entity/products/_domain/types";
 import { Search } from "lucide-react";
+import { highlightMatch } from "./highlight-match";
 
-export const ProductCard = ({ product }: { product: Product }) => {
+export const ProductCard = ({
+    product,
+    query,
+}: {
+    product: Product;
+    query: string;
+}) => {
     return (
         <div className="flex flex-row items-center p-2 gap-4 w-full hover:bg-gray-light transition-colors rounded-md">
             <div className="flex items-center justify-center w-full max-w-[30px] h-[30px] bg-gray-light rounded-md">
@@ -13,9 +20,10 @@ export const ProductCard = ({ product }: { product: Product }) => {
             </div>
             <div className="flex flex-row gap-2">
                 <span>
-                    {product.article}-{product.name}
+                    {highlightMatch(product.article, query)}-
+                    {highlightMatch(product.name, query)}
                 </span>
-                <span>({product.code})</span>
+                <span>{highlightMatch(product.code, query)}</span>
             </div>
         </div>
     );
