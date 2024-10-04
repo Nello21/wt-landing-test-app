@@ -20,6 +20,15 @@ export default function ProductsList() {
         return <div>Ошибка загрузки товаров</div>;
     }
 
+    if (query && products.length === 0) {
+        return (
+            <div>
+                Ничего не найдено по запросу:{" "}
+                <span className="text-blue-dark">{query}</span>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col gap-6 items-start max-w-[1128px]">
             {products.length === 0 ? (
