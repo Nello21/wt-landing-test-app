@@ -56,7 +56,7 @@ export const setSession = async ({
             value: JSON.stringify({ id, phone }),
             options: {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
+                // secure: process.env.NODE_ENV === "production",
                 maxAge: 24 * 60 * 60,
             },
         });

@@ -10,7 +10,7 @@ export const cookie = {
         value: string;
         options?: {
             httpOnly: boolean;
-            secure: boolean;
+            // secure: boolean;
             maxAge: number;
         };
     }) {
