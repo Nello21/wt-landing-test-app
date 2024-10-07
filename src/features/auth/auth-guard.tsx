@@ -11,7 +11,7 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     console.log(session);
     if (session.isLoading) {
         return (
-            <div className="min-h-[100dvh] flex items-center justify-center">
+            <div className="min-h-[85dvh] flex items-center justify-center">
                 <Loader />
             </div>
         );
