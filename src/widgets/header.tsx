@@ -5,7 +5,7 @@ import Logo from "/public/icons/logo.svg";
 import Title from "/public/icons/title.svg";
 import Phone from "/public/icons/phone.svg";
 import User from "/public/icons/user.svg";
-import { SearchBar } from "./products-list/search-bar";
+import { SearchBar } from "../widgets/search-bar";
 import { useSession } from "@/entity/user/_queries";
 
 export const Header = () => {

@@ -2,17 +2,17 @@
 
 import React, { FC } from "react";
 import { Search } from "lucide-react";
-import { Input } from "../../shared/components/ui/input";
+import { Input } from "../shared/components/ui/input";
 import {
     Dialog,
     DialogClose,
     DialogContent,
     DialogTitle,
     DialogTrigger,
-} from "../../shared/components/ui/dialog";
-import { Button } from "../../shared/components/ui/button";
+} from "../shared/components/ui/dialog";
+import { Button } from "../shared/components/ui/button";
 import ProductsList from "@/features/products-list/products-list";
-import { useProductParams } from "./use-products-params";
+import { useProductParams } from "../features/products-list/use-products-params";
 import { Plus } from "lucide-react";
 
 interface SearchBarProps {
