@@ -8,12 +8,15 @@ const COOKIE_SESSION_KEY = "SESSION";
 export const getServerSession = async (): Promise<{
     id: number;
     phone: string;
-} | null> => {
+}> => {
     try {
         const sessionCookie = cookie.get({ key: COOKIE_SESSION_KEY });
 
         if (!sessionCookie) {
-            return null;
+            throw new CustomError({
+                message: "Ошибка при получении сессии",
+                code: ERROR_CODES.BAD_REQUEST,
+            });
         }
 
         const session = JSON.parse(sessionCookie.value);

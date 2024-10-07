@@ -9,9 +9,14 @@ export const login = async ({ phone }: { phone: string }): Promise<void> => {
             where: { phone },
         });
 
-        if (user) {
-            setSession({ id: user.id, phone: user.phone });
+        if (!user) {
+            throw new CustomError({
+                message: "Пользователь не найден",
+                code: ERROR_CODES.NOT_FOUND,
+            });
         }
+
+        setSession({ id: user.id, phone: user.phone });
     } catch (error) {
         console.error("Ошибка при авторизации:", error);
 
