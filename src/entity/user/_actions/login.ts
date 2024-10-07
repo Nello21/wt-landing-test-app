@@ -17,6 +17,7 @@ export const login = async ({ phone }: { phone: string }): Promise<void> => {
             });
         }
 
+        console.log("login user:", user);
         setSession({ id: user.id, phone: user.phone });
     } catch (error) {
         console.error("Ошибка при авторизации:", error);

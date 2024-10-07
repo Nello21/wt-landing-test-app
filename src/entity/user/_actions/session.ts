@@ -12,6 +12,8 @@ export const getServerSession = async (): Promise<{
     try {
         const sessionCookie = cookie.get({ key: COOKIE_SESSION_KEY });
 
+        console.log("cookie", sessionCookie);
+
         if (!sessionCookie) {
             return null;
         }
@@ -28,6 +30,8 @@ export const getServerSession = async (): Promise<{
                 code: ERROR_CODES.UNAUTHORIZED,
             });
         }
+
+        console.log("getSession", { id: user.id, phone: user.phone });
 
         return { id: user.id, phone: user.phone };
     } catch (error) {
