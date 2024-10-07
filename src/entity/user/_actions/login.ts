@@ -26,6 +26,4 @@ export const login = async ({ phone }: { phone: string }): Promise<void> => {
     }
 
     setSession({ id: user.id, phone: user.phone });
-
-    setSession({ id: user.id, phone: user.phone });
 };
