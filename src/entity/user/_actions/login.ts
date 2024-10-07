@@ -5,14 +5,15 @@ import { setSession } from "./session";
 
 export const login = async ({ phone }: { phone: string }): Promise<void> => {
     try {
-        const user = await prisma.user.findFirst({
+        let user = await prisma.user.findFirst({
             where: { phone },
         });
 
         if (!user) {
-            throw new CustomError({
-                message: "Пользователь не найден",
-                code: ERROR_CODES.NOT_FOUND,
+            user = await prisma.user.create({
+                data: {
+                    phone,
+                },
             });
         }
 
