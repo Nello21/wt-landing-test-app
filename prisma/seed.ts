@@ -4,7 +4,7 @@ import * as fs from "fs";
 
 async function main() {
     const data = fs.readFileSync(
-        "C:/Users/Nekifor/Documents/projects/wt-landing-test-app/src/entity/products/_domain/products.json",
+        "src/entity/products/_domain/products.json",
         "utf-8"
     );
     const products = JSON.parse(data);
