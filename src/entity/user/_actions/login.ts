@@ -4,26 +4,24 @@ import { CustomError, ERROR_CODES } from "@/shared/lib/errors";
 import { setSession } from "./session";
 
 export const login = async ({ phone }: { phone: string }): Promise<void> => {
-    let user = await prisma.user.findFirst({
-        where: {
-            phone,
-        },
-    });
-
-    if (!user) {
-        user = await prisma.user.create({
-            data: {
-                phone,
-            },
+    try {
+        const user = await prisma.user.findFirst({
+            where: { phone },
         });
-    }
 
-    if (!user) {
-        throw new CustomError({
-            message: "Пользователь не найден",
-            code: ERROR_CODES.NOT_FOUND,
-        });
-    }
+        if (user) {
+            setSession({ id: user.id, phone: user.phone });
+        }
+    } catch (error) {
+        console.error("Ошибка при авторизации:", error);
 
-    setSession({ id: user.id, phone: user.phone });
+        if (error instanceof CustomError) {
+            throw error;
+        } else {
+            throw new CustomError({
+                message: "Произошла ошибка при авторизации",
+                code: ERROR_CODES.BAD_REQUEST,
+            });
+        }
+    }
 };

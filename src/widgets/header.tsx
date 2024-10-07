@@ -10,7 +10,6 @@ import { useSession } from "@/entity/user/_queries";
 
 export const Header = () => {
     const session = useSession();
-    console.log(session);
 
     return (
         <nav className="fixed bottom-0 sm:sticky sm:top-0 max-[640px]:fixed max-[640px]:bottom-0 max-[640px]:flex-col z-50 max-h-[94px] w-full px-4 bg-white">

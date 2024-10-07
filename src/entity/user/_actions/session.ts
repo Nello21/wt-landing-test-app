@@ -8,35 +8,35 @@ const COOKIE_SESSION_KEY = "SESSION";
 export const getServerSession = async (): Promise<{
     id: number;
     phone: string;
-}> => {
-    const sessionCookie = cookie.get({ key: COOKIE_SESSION_KEY });
+} | null> => {
+    try {
+        const sessionCookie = cookie.get({ key: COOKIE_SESSION_KEY });
 
-    if (!sessionCookie) {
+        if (!sessionCookie) {
+            return null;
+        }
+
+        const session = JSON.parse(sessionCookie.value);
+
+        const user = await prisma.user.findFirst({
+            where: { id: session.id },
+        });
+
+        if (!user) {
+            throw new CustomError({
+                message: "Пользователь не найден",
+                code: ERROR_CODES.UNAUTHORIZED,
+            });
+        }
+
+        return { id: user.id, phone: user.phone };
+    } catch (error) {
+        console.error("Error in getServerSession:", error);
         throw new CustomError({
-            message: "Сессия не установлена",
-            code: ERROR_CODES.UNAUTHORIZED,
+            message: "Ошибка при получении сессии",
+            code: ERROR_CODES.BAD_REQUEST,
         });
     }
-
-    const session = JSON.parse(sessionCookie.value);
-
-    const user = await prisma.user.findFirst({
-        where: {
-            id: session.id,
-        },
-    });
-
-    if (!user) {
-        throw new CustomError({
-            message: "Пользователь не найден",
-            code: ERROR_CODES.UNAUTHORIZED,
-        });
-    }
-
-    return {
-        id: user.id,
-        phone: user.phone,
-    };
 };
 
 export const setSession = async ({
@@ -46,13 +46,21 @@ export const setSession = async ({
     id: number;
     phone: string;
 }) => {
-    cookie.set({
-        key: COOKIE_SESSION_KEY,
-        value: JSON.stringify({ id, phone }),
-        options: {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60,
-        },
-    });
+    try {
+        cookie.set({
+            key: COOKIE_SESSION_KEY,
+            value: JSON.stringify({ id, phone }),
+            options: {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                maxAge: 24 * 60 * 60,
+            },
+        });
+    } catch (error) {
+        console.error("Error in setSession:", error);
+        throw new CustomError({
+            message: "Ошибка при установке сессии",
+            code: ERROR_CODES.BAD_REQUEST,
+        });
+    }
 };
