@@ -17,7 +17,7 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
         );
     }
 
-    if (!session.data && pathname !== "/login") {
+    if (!session.data?.id && pathname !== "/login") {
         router.replace("/login");
         return;
     }
