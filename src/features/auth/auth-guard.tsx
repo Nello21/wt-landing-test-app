@@ -15,10 +15,7 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
             </div>
         );
     }
-    if (session.isError) {
-        router.replace("/login");
-        return;
-    }
+
     if (!session.data) {
         router.replace("/login");
         return;
