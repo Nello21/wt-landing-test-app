@@ -2,11 +2,12 @@
 
 import { useSession } from "@/entity/user/_queries";
 import { Loader } from "@/shared/components/ui/pacman-loader";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const session = useSession();
+    const pathname = usePathname();
     console.log(session);
     if (session.isLoading) {
         return (
@@ -16,7 +17,7 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
         );
     }
 
-    if (!session.data) {
+    if (!session.data && pathname !== "/login") {
         router.replace("/login");
         return;
     }
