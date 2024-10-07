@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/features/header";
 import { AppProvider } from "./_providers";
+import { Header } from "@/widgets/header";
 
 const font = Montserrat({ subsets: ["latin"] });
 
