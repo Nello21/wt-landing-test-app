@@ -27,6 +27,7 @@ const config = {
             white: colors.white,
             black: colors.black,
             red: colors.red,
+            yellow: colors.yellow,
         },
         extend: {
             keyframes: {

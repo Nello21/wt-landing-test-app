@@ -13,10 +13,7 @@ export function highlightMatch(text: string, query: string) {
 
     return parts.map((part, index) =>
         part.toLowerCase() === query.toLowerCase() ? (
-            <span
-                key={`${part}-${index}`}
-                style={{ backgroundColor: "yellow" }}
-            >
+            <span key={`${part}-${index}`} className="bg-yellow-300">
                 {part}
             </span>
         ) : (
