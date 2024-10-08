@@ -20,6 +20,7 @@ import { BaseSyntheticEvent } from "react";
 export const FormPhone = ({
     phoneForm,
     loginPhone,
+    isPending,
 }: {
     phoneForm: UseFormReturn<
         {
@@ -28,6 +29,7 @@ export const FormPhone = ({
         undefined
     >;
     loginPhone: (e?: BaseSyntheticEvent) => Promise<void>;
+    isPending: boolean;
 }) => {
     return (
         <div>
@@ -54,6 +56,7 @@ export const FormPhone = ({
                                             <Lock size={20} fill="lightgray" />
                                         </div>
                                         <Input
+                                            disabled={isPending}
                                             placeholder="Номер телефона"
                                             {...field}
                                             className={cn(
@@ -72,6 +75,7 @@ export const FormPhone = ({
                         )}
                     />
                     <Button
+                        loading={isPending}
                         type="submit"
                         className="h-[44px] rounded-2xl bg-blue-dark text-white"
                     >

@@ -6,8 +6,14 @@ import { FormOTP } from "./form-code";
 import { FormPhone } from "./form-phone";
 
 export function FormLogin() {
-    const { phoneForm, loginPhone, generatedOTP, phone, isOTPMode } =
-        useFormPhone();
+    const {
+        phoneForm,
+        loginPhone,
+        generatedOTP,
+        phone,
+        isOTPMode,
+        isPending: isPhonePending,
+    } = useFormPhone();
     const { otpForm, loginOTP, isPending } = useFormOTP({
         generatedOTP,
         phone,
@@ -16,7 +22,11 @@ export function FormLogin() {
     return (
         <div className="flex flex-col gap-4 w-3/5 justify-center pb-5">
             {!isOTPMode ? (
-                <FormPhone phoneForm={phoneForm} loginPhone={loginPhone} />
+                <FormPhone
+                    phoneForm={phoneForm}
+                    loginPhone={loginPhone}
+                    isPending={isPhonePending}
+                />
             ) : (
                 <FormOTP
                     otpForm={otpForm}

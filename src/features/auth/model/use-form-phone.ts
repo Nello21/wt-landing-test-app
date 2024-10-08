@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { postToAero } from "@/entity/user/_actions/post-to-aero";
+import { useMutation } from "@tanstack/react-query";
 
 const phoneSchema = z.object({
     phone: z.string().min(1, {
@@ -22,23 +23,24 @@ export const useFormPhone = () => {
         },
     });
 
+    const { mutate, isPending } = useMutation({
+        mutationFn: postToAero,
+        onSuccess: () => setIsOTPMode(true),
+        onError: (error) => {
+            phoneForm.setError("root", {
+                message: error.message ?? "Ошибка смс сервиса",
+            });
+        },
+    });
+
     async function onSubmitPhone(values: z.infer<typeof phoneSchema>) {
         const phone = values.phone;
         setPhone(phone);
         const message = Math.floor(1000 + Math.random() * 9000).toString();
         setGeneratedOTP(message);
+        console.log(message);
 
-        try {
-            await postToAero({ phone, message });
-
-            setIsOTPMode(true);
-            console.log(message);
-        } catch (error) {
-            console.log(error);
-            phoneForm.setError("root", {
-                message: "Ошибка отправки SMS",
-            });
-        }
+        mutate({ phone, message });
     }
 
     return {
@@ -47,5 +49,6 @@ export const useFormPhone = () => {
         isOTPMode,
         generatedOTP,
         phone,
+        isPending,
     };
 };
