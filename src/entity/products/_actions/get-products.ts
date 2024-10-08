@@ -20,9 +20,24 @@ export const getFilteredProducts = async (
         where: {
             OR: searchTerms.map((term) => ({
                 OR: [
-                    { name: { contains: term.toLowerCase() } },
-                    { article: { contains: term.toLowerCase() } },
-                    { code: { contains: term.toLowerCase() } },
+                    {
+                        name: {
+                            contains: term.toLowerCase(),
+                            mode: "insensitive",
+                        },
+                    },
+                    {
+                        article: {
+                            contains: term.toLowerCase(),
+                            mode: "insensitive",
+                        },
+                    },
+                    {
+                        code: {
+                            contains: term.toLowerCase(),
+                            mode: "insensitive",
+                        },
+                    },
                 ],
             })),
         },

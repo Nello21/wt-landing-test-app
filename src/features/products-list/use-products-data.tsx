@@ -17,7 +17,9 @@ export const useProductData = () => {
                 setProducts(data);
             });
         } else {
-            setProducts([]);
+            startTransition(() => {
+                setProducts([]);
+            });
         }
     }, [query, data, startTransition]);
 

@@ -19,7 +19,7 @@ export const useProductParams = () => {
             params.delete("query");
         }
         replace(`${pathname}?${params.toString()}`);
-    }, 200);
+    }, 400);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
