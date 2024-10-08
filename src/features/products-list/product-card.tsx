@@ -25,3 +25,5 @@ export const ProductCard = memo(
         );
     }
 );
+
+ProductCard.displayName = "ProductCard";
